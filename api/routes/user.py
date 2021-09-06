@@ -12,6 +12,7 @@ from api.models.user import (
     ResponseModel,
 )
 
+
 router = APIRouter()
 
 @router.post("/signup", response_description="Successfully creted account")
