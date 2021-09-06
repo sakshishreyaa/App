@@ -4,32 +4,17 @@ from pydantic import BaseModel, EmailStr
 
 
 class UserModel(BaseModel):
-    fullname: str 
+    fullname: str
     email: EmailStr
     password: str
+    dob: Optional[datetime] = None
+    blood_group: Optional[str] = None
 
     class Config:
         schema_extra = {
             "example": {
                 "fullname": "Salki Sreya",
-                "email": "ss@gmail.com",
-                "password": "pass",
-            }
-        }
-
-
-class UpdateUserModel(BaseModel):
-    fullname: Optional[str] =None 
-    email: Optional[EmailStr] =None
-    password : Optional[str] =None
-    dob : Optional[datetime] = None
-    blood_group : Optional[str]=None
-
-    class Config:
-        schema_extra = {
-            "example": {
-                "fullname": "Salki Sreya",
-                "email": "ss@gmail.com",
+                "email": "sa@gmail.com",
                 "password": "pass",
                 "dob": datetime(1998, 11, 9),
                 "blood_group": "O (+ve)",
