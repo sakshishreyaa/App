@@ -6,7 +6,6 @@ from api.db import (
     retrieve_user,
     retrieve_users,
     # retrieve_usere,
-    
 )
 from api.models.user import (
     UserModel,
