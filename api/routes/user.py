@@ -1,16 +1,17 @@
 import json
-from fastapi import APIRouter, Body
+from fastapi import APIRouter, Body, Depends
 from fastapi.encoders import jsonable_encoder
+from fastapi.security.api_key import APIKey
 
-from api.db import (
+from api.mongodb import (
     add_user,
     retrieve_user,
     retrieve_users,
     retrieve_profile,
 )
-from api.redis_cache import redis_connection
+from api.redisdb import redis_connection
 from api.models.user import UserModel, ResponseModel, ErrorResponseModel
-
+from .auth import get_api_key
 
 router = APIRouter()
 
@@ -43,7 +44,7 @@ async def get_all_users():
 
 
 @router.get("/get_user_profile", response_description="User data retrieved")
-async def get_user_profile(email: str):
+async def get_user_profile(email: str, api_key: APIKey = Depends(get_api_key)):
     redis_db = await redis_connection()
     cached_profile = redis_db.get(email)
     if cached_profile:
